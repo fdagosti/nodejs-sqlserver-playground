@@ -1,0 +1,20 @@
+{
+  "name": "my_todolist_poc",
+  "version": "1.0.0",
+  "description": "a simple todo list for testing purposes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://krugerinc@dev.azure.com/krugerinc/Digital%20Twin%20Adops%20POC/_git/My_TodoList_POC"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "ejs": "^3.1.7",
+    "express": "^4.18.1"
+  }
+}
