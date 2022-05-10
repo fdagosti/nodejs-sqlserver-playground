@@ -3,11 +3,17 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: DevOps/DevOps
+
 trigger:
 - master
 
 extends:
-  template: application-pipelines/on-prem-container-pipeline.yml
+  template: application-pipelines/on-prem-container-pipeline.yml@templates
   parameters:
      yesNo: true
      libraryName: "Devops-Nodejs-POC - Dev"
