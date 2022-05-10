@@ -7,6 +7,6 @@ trigger:
 - master
 
 extends:
-  template: on-prem-container-pipeline.yml
+  template: application-pipelines/on-prem-container-pipeline.yml
   parameters:
      yesNo: true
