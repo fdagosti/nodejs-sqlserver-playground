@@ -22,6 +22,7 @@ extends:
      azureSubscription: GdemicheleCloud
      sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
      containerPort: 8080
+     environment: "francois-test-environment"
      projectSteps:  
       - bash: echo Test 
         displayName: project step one
