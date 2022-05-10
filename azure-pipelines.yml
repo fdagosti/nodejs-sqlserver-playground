@@ -83,7 +83,7 @@ stages:
                   displayName: 'Run Image on Remote Server'
                   inputs:
                     sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
-                    commands: 'docker run --name $(ContainerName) -dp $(WebsitesPort):5000 $(ARC)/$(ImageName):$(Build.BuildId)'
+                    commands: 'docker run --name $(ContainerName) -dp $(WebsitesPort):8080 $(ARC)/$(ImageName):$(Build.BuildId)'
                 - task: SSH@0
                   displayName: 'Delete Image TAR on Remote Server Disk'
                   inputs:
