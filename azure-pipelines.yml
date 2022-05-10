@@ -22,9 +22,9 @@ extends:
      azureSubscription: GdemicheleCloud
      sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
      projectSteps:  
-      - bash: echo Test #Passes
+      - bash: echo Test 
         displayName: project step one
-      - bash: echo "Test"
+      - bash: echo "Test 2"
         displayName: project step two
       
 
