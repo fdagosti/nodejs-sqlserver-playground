@@ -36,7 +36,7 @@ stages:
           name: DevopsPOC
           demands:
             - agent.name -equals DevOps_Ubuntu_Kruger 
-        environment: "Dev"  
+        environment: "francois-test-environment"  
         strategy:
           runOnce:
             deploy:
