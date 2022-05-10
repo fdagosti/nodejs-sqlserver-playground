@@ -75,6 +75,7 @@ stages:
                     commands: 'docker load -i $(ARC)_$(ImageName)_$(Build.BuildId).tar'
                 - task: SSH@0
                   displayName: 'Remove Container by Force on Remote Server'
+                  continueOnError: true
                   inputs:
                     sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
                     commands: 'docker rm --force $(ContainerName)'
@@ -82,7 +83,7 @@ stages:
                   displayName: 'Run Image on Remote Server'
                   inputs:
                     sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
-                    commands: 'docker run --name $(ContainerName) -dp 5000:5000 $(ARC)/$(ImageName):$(Build.BuildId)'
+                    commands: 'docker run --name $(ContainerName) -dp $(WebsitesPort):5000 $(ARC)/$(ImageName):$(Build.BuildId)'
                 - task: SSH@0
                   displayName: 'Delete Image TAR on Remote Server Disk'
                   inputs:
