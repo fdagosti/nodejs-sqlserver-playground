@@ -29,7 +29,7 @@ stages:
     dependsOn: Build    # this stage runs after Build
     displayName: Deploy to on-prem Dev
     variables:
-      - group: "DevopsPOC - Dev"
+      - group: "Devops-Nodejs-POC - Dev"
     jobs:
       - deployment: 
         pool:
@@ -92,7 +92,7 @@ stages:
     dependsOn: Build    # this stage runs after Build
     displayName: Deploy to Azure Dev
     variables:
-      - group: "DevopsPOC - Dev"
+      - group: "Devops-Nodejs-POC - Dev"
     jobs:
       - deployment: 
         pool:
