@@ -10,8 +10,10 @@ parameters:
 
 stages:
   - stage: just-for-fun
-    steps:
-    - script: echo ${{parameters.yesNo}}
+    jobs:
+    - job: A
+      steps:
+      - script: echo ${{parameters.yesNo}}
   - stage: Build
     jobs:
       - job: Docker
