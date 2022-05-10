@@ -9,7 +9,7 @@ parameters:
   default: false
 
 stages:
-  - stage: just-for-fun
+  - stage: just_for_fun
     jobs:
     - job: A
       steps:
