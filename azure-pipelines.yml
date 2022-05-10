@@ -1,0 +1,116 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+stages:
+  - stage: Build
+    jobs:
+      - job: Docker
+        pool:
+          vmImage: ubuntu-18.04    
+        steps:
+          - task: Docker@0
+            displayName: Build an image
+            inputs:
+              azureSubscriptionEndpoint: 592636b8-b436-47ba-a3f6-3908bede0677
+              azureContainerRegistry: '{"loginServer":"dockerpoc2.azurecr.io", "id" : "/subscriptions/4563b8b2-94cb-4c1e-a18e-29684fbf97ed/resourceGroups/DockerRG/providers/Microsoft.ContainerRegistry/registries/dockerpoc2"}'
+              action: Build an image
+          - task: Docker@0
+            displayName: Push an image to ARC
+            inputs:
+              azureSubscriptionEndpoint: 592636b8-b436-47ba-a3f6-3908bede0677
+              azureContainerRegistry: '{"loginServer":"dockerpoc2.azurecr.io", "id" : "/subscriptions/4563b8b2-94cb-4c1e-a18e-29684fbf97ed/resourceGroups/DockerRG/providers/Microsoft.ContainerRegistry/registries/dockerpoc2"}'
+              action: Push an image
+  - stage: DeployOnPremDev
+    dependsOn: Build    # this stage runs after Build
+    displayName: Deploy to on-prem Dev
+    variables:
+      - group: "DevopsPOC - Dev"
+    jobs:
+      - deployment: 
+        pool:
+          name: DevopsPOC
+          demands:
+            - agent.name -equals DevOps_Ubuntu_Kruger 
+        environment: "Dev"  
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: Docker@0
+                  displayName: 'Pull an Image from ARC'
+                  inputs:
+                    azureSubscription: GdemicheleCloud
+                    azureContainerRegistry: '{"loginServer":"dockerpoc2.azurecr.io", "id" : "/subscriptions/4563b8b2-94cb-4c1e-a18e-29684fbf97ed/resourceGroups/DockerRG/providers/Microsoft.ContainerRegistry/registries/dockerpoc2"}'
+                    action: 'Run a Docker command'
+                    customCommand: 'pull $(ARC)/$(ImageName):$(Build.BuildId)'
+                - task: Docker@0
+                  displayName: 'Save Image TAR to Agent Disk'
+                  inputs:
+                    action: 'Run a Docker command'
+                    customCommand: 'save -o $(ARC)_$(ImageName)_$(Build.BuildId).tar $(ARC)/$(ImageName):$(Build.BuildId)'
+                - task: Docker@0
+                  displayName: 'Remove Image by Force from Agent Registry'
+                  inputs:
+                    action: 'Run a Docker command'
+                    customCommand: 'image rm --force $(ARC)_$(ImageName)_$(Build.BuildId).tar $(ARC)/$(ImageName):$(Build.BuildId)'
+                - task: CopyFilesOverSSH@0
+                  displayName: 'Copy Image TAR to Remote Server'
+                  inputs:
+                    sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
+                    contents: '$(ARC)_$(ImageName)_$(Build.BuildId).tar'
+                - task: DeleteFiles@1
+                  displayName: 'Delete Image TAR from Agent Disk'
+                  inputs:
+                    SourceFolder: '$(build.artifactstagingdirectory)'
+                    Contents: '$(ARC)_$(ImageName)_$(Build.BuildId).tar'
+                - task: SSH@0
+                  displayName: 'Load Image TAR to Remote Server Registry'
+                  inputs:
+                    sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
+                    commands: 'docker load -i $(ARC)_$(ImageName)_$(Build.BuildId).tar'
+                - task: SSH@0
+                  displayName: 'Remove Container by Force on Remote Server'
+                  inputs:
+                    sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
+                    commands: 'docker rm --force $(ContainerName)'
+                - task: SSH@0
+                  displayName: 'Run Image on Remote Server'
+                  inputs:
+                    sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
+                    commands: 'docker run --name $(ContainerName) -dp 5000:5000 $(ARC)/$(ImageName):$(Build.BuildId)'
+                - task: SSH@0
+                  displayName: 'Delete Image TAR on Remote Server Disk'
+                  inputs:
+                    sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
+                    commands: 'rm $(ARC)_$(ImageName)_$(Build.BuildId).tar'                
+  - stage: DeployAzureDev
+    dependsOn: Build    # this stage runs after Build
+    displayName: Deploy to Azure Dev
+    variables:
+      - group: "DevopsPOC - Dev"
+    jobs:
+      - deployment: 
+        pool:
+          vmImage: ubuntu-18.04 
+        environment: "Azure-Dev"  
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureRmWebAppDeployment@3
+                  displayName: 'Azure App Service Deploy'
+                  inputs:
+                    azureSubscription: GdemicheleCloud
+                    appType: applinux
+                    WebAppName: mypocapp4
+                    DockerNamespace: '$(ARC)'
+                    DockerRepository: '$(ImageName)'
+                    DockerImageTag: '$(BUILD.BUILDID)'
+                    AppSettings: '-DOCKER_REGISTRY_SERVER_PASSWORD $(ARCPassword) -DOCKER_REGISTRY_SERVER_USERNAME $(ARCUsername) -PORT $(WebsitesPort)'
+                    TakeAppOfflineFlag: true
+
