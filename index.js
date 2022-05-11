@@ -18,8 +18,6 @@ app.post('/addtask', function (req, res) {
     res.redirect("/");
 });
 
-console.log("env varaible ", Object.keys(process.env))
-
 app.get("/", function (req, res) {
     res.render("index", { task: task, complete: complete, env:  Object.keys(process.env)});
 });
