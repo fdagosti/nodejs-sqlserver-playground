@@ -17,8 +17,11 @@ app.post('/addtask', function (req, res) {
     task.push(newTask);
     res.redirect("/");
 });
+
+console.log("env varaible ", Object.keys(process.env))
+
 app.get("/", function (req, res) {
-    res.render("index", { task: task, complete: complete });
+    res.render("index", { task: task, complete: complete, env:  Object.keys(process.env)});
 });
 
 var complete = ["finish developing a POC Nodejs app"];

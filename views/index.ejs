@@ -9,7 +9,7 @@
     <div class="container">
         <h2> Simple Todo app for Azure DevOps POC</h2>
         <h3>This is brought to you by the Kruger DevOps Team</h3>
-        <p>This is an added paragraph</p>
+        
         <form action="/addtask" method="POST">
             <input type="text" name="newtask" placeholder="add new task"> <button> Add Task </button>
             <h2> Added Task </h2>
@@ -17,7 +17,7 @@
                 <li><input type="checkbox" name="check" value="<%= task[i] %>" />
                     <%= task[i] %>
                 </li>
-                <% } %>
+            <% } %>
 
                     <button formaction="/removetask" type="submit"> Remove </button>
 
@@ -28,6 +28,21 @@
                         </li>
                         <% } %>
         </form>
+
+        <br><br><br>
+        <h3>Environment Variables</h3>
+        <p>
+            Below are all the environment variables which are injected into this application for debugging purposes
+            <small>
+                <ul>
+                    <% for( var i=0; i < env.length; i++){ %>
+                        <li>
+                            <%= env[i] %> : <span style="color: gray;"><%= process.env[env[i]] %></span>
+                        </li>
+                    <% } %>
+                </ul>
+            </small>
+        </p>
     </div>
 </body>
 
