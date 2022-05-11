@@ -15,7 +15,6 @@ trigger:
 extends:
   template: application-pipelines/simple-container-pipeline.yml@templates
   parameters:
-     yesNo: true
      libraryName: "Devops-Nodejs-POC - Dev"
      azureSubscriptionEndpoint: 592636b8-b436-47ba-a3f6-3908bede0677
      azureContainerRegistry: '{"loginServer":"dockerpoc2.azurecr.io", "id" : "/subscriptions/4563b8b2-94cb-4c1e-a18e-29684fbf97ed/resourceGroups/DockerRG/providers/Microsoft.ContainerRegistry/registries/dockerpoc2"}'
