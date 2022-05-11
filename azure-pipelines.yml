@@ -13,7 +13,7 @@ trigger:
 - master
 
 extends:
-  template: application-pipelines/on-prem-container-pipeline.yml@templates
+  template: application-pipelines/simple-container-pipeline.yml@templates
   parameters:
      yesNo: true
      libraryName: "Devops-Nodejs-POC - Dev"
