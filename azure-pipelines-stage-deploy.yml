@@ -1,0 +1,15 @@
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: DevOps/DevOps
+
+trigger:
+- Stage
+
+
+variables: 
+  - group: env-variables
+extends:
+  template: application-pipelines/simple-container-deploy.yml@templates
+  
