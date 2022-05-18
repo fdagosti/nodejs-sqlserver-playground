@@ -19,4 +19,4 @@ extends:
      environment: "francois-test-environment"
      dockerEnvVarOptions: '-e VAR1=$(env-test) -e VAR2="$(env-test2)" -e password-variable'
      sshEndpoint: 'KKSVAIDOCKERPD_SSH'
-     containerPort: 5190
+     containerPort: 8080
