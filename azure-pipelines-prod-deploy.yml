@@ -11,7 +11,7 @@ trigger:
 variables: 
   - group: env-variables
 extends:
-  template: application-pipelines/simple-container-deploy.yml@templates
+  template: application-pipelines/simple-container-pipeline.yml@templates
   parameters:
     ACRConnection: 'DOCKERPOC2_ACR'
     libraryName: "Devops-Nodejs-POC - Dev"

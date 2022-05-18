@@ -23,6 +23,7 @@ extends:
      sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
      containerPort: 8080
      environment: "francois-test-environment"
+     buildImage: true
      projectSteps:  
       - bash: echo Test 
         displayName: project step one
