@@ -17,3 +17,6 @@ extends:
      azureSubscription: GdemicheleCloud
      libraryName: "Devops-Nodejs-POC - Dev"
      environment: "francois-test-environment"
+     dockerEnvVarOptions: '-e VAR1=$(env-test) -e VAR2="$(env-test2)" -e password-variable'
+     sshEndpoint: 'KKSVAIDOCKERPD_SSH'
+     containerPort: 5190
