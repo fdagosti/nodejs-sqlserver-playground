@@ -5,7 +5,7 @@ resources:
       name: DevOps/DevOps
 
 trigger:
-- Stage
+- prod
 
 
 variables: 
