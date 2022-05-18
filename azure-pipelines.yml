@@ -15,7 +15,7 @@ trigger:
 variables: 
   - group: env-variables
 extends:
-  template: application-pipelines/simple-container-pipeline-v2.yml@templates
+  template: application-pipelines/simple-container-pipeline.yml@templates
   parameters:
      dockerEnvVarOptions: '-e VAR1=$(env-test) -e VAR2="$(env-test2)" -e password-variable'
      ACRConnection: 'DOCKERPOC2_ACR'
