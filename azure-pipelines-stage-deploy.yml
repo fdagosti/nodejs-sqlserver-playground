@@ -13,4 +13,6 @@ variables:
   - group: env-variables
 extends:
   template: application-pipelines/simple-container-deploy.yml@templates
-  
+parameters:
+     azureContainerRegistry: '{"loginServer":"dockerpoc2.azurecr.io", "id" : "/subscriptions/4563b8b2-94cb-4c1e-a18e-29684fbf97ed/resourceGroups/DockerRG/providers/Microsoft.ContainerRegistry/registries/dockerpoc2"}'
+     azureSubscription: GdemicheleCloud
