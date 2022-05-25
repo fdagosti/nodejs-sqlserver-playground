@@ -52,7 +52,7 @@ extends:
         - Var1=Val1
         - Var2=Val1
         - Var3=Val1
-      imageName: digitaltwinadopspoc
+      imageName: mytodolistpoc
       imageTag: $(Build.SourceVersion)
       containerName: 'My-TodoList-POC'
 
