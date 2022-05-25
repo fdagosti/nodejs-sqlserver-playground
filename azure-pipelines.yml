@@ -17,7 +17,7 @@ variables:
 - template: _boilerplate-templates/global/global-shared-variables.yml@templates
 
 extends:
-  template: application-pipelines/simple-container-pipeline.yml@templates
+  template: application-pipelines/simple-container-pipeline-extends.yml@templates
   parameters:
     buildImage: True
     selfHostedAgent: False
