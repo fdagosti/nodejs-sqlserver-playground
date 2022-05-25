@@ -18,43 +18,43 @@ variables:
 
 extends:
   template: application-pipelines/simple-container-pipeline.yml@templates
-    parameters:
-      buildImage: True
-      selfHostedAgent: False
+  parameters:
+    buildImage: True
+    selfHostedAgent: False
+    containerRegistry: $(gblAzureContainerRegistry) #'DOCKERPOC2_ACR'
+    containerRegistryUrl: $(gblAzureContainerRegistryUrl) #'dockerpoc2.azurecr.io'
+    containerRegistryUsername: 'dockerpoc2'
+    containerRegistryPassword: $(ARCPassword)
+    imageName: mytodolistpoc
+    imageTag: $(Build.SourceVersion)
+
+    projectBuildSteps:  
+      - bash: echo Test 
+        displayName: project step one $(dev-pass)
+      - bash: echo "Test 2"
+        displayName: project step two $(prd-pass)
+
+    environmentsObject:
+    - templateType: 'container-onprem-deploy'
+      libraryName:  "Devops-Nodejs-POC - Dev"
+#      useSaveLoadMode: True
+      selfHostedAgent: True
+      environmentName: ${{ variables.gblDevelopmentEnvironmentName }}  #Development
+      dependsOn: Build
       containerRegistry: $(gblAzureContainerRegistry) #'DOCKERPOC2_ACR'
       containerRegistryUrl: $(gblAzureContainerRegistryUrl) #'dockerpoc2.azurecr.io'
-      containerRegistryUsername: 'dockerpoc2'
       containerRegistryPassword: $(ARCPassword)
-      imageName: mytodolistpoc
+      containerRegistryUsername: dockerpoc2
+      sshEndpoint: $(gblSSHDigitalTwinDev)  #'KKSVAIDOCKERDV2_SSH'
+      containerPort: 8080
+      exposedPort: 8080
+      environmentsVariables:
+        - Var1=Val1
+        - Var2=Val1
+        - Var3=Val1
+      imageName: digitaltwinadopspoc
       imageTag: $(Build.SourceVersion)
-
-      projectBuildSteps:  
-        - bash: echo Test 
-          displayName: project step one $(dev-pass)
-        - bash: echo "Test 2"
-          displayName: project step two $(prd-pass)
-
-      environmentsObject:
-      - templateType: 'container-onprem-deploy'
-        libraryName:  "Devops-Nodejs-POC - Dev"
-  #      useSaveLoadMode: True
-        selfHostedAgent: True
-        environmentName: ${{ variables.gblDevelopmentEnvironmentName }}  #Development
-        dependsOn: Build
-        containerRegistry: $(gblAzureContainerRegistry) #'DOCKERPOC2_ACR'
-        containerRegistryUrl: $(gblAzureContainerRegistryUrl) #'dockerpoc2.azurecr.io'
-        containerRegistryPassword: $(ARCPassword)
-        containerRegistryUsername: dockerpoc2
-        sshEndpoint: $(gblSSHDigitalTwinDev)  #'KKSVAIDOCKERDV2_SSH'
-        containerPort: 8080
-        exposedPort: 8080
-        environmentsVariables:
-          - Var1=Val1
-          - Var2=Val1
-          - Var3=Val1
-        imageName: digitaltwinadopspoc
-        imageTag: $(Build.SourceVersion)
-        containerName: 'My-TodoList-POC'
+      containerName: 'My-TodoList-POC'
 
 
       
