@@ -26,8 +26,7 @@ extends:
     selfHostedAgent: False
     containerRegistry: $(gblAzureContainerRegistry)
     containerRegistryUrl: $(gblAzureContainerRegistryUrl)
-    imageName: $(Build.Repository.Name)
-    imageTag: $(Build.SourceVersion)
+    imageName: mytodolistpoc
     
     projectBuildSteps:  
       - bash: echo Test 

@@ -25,7 +25,6 @@ extends:
     containerRegistry: $(gblAzureContainerRegistry) #'DOCKERPOC2_ACR'
     containerRegistryUrl: $(gblAzureContainerRegistryUrl) #'dockerpoc2.azurecr.io'
     imageName: mytodolistpoc
-    imageTag: $(Build.SourceVersion)
 
     projectBuildSteps:  
       - bash: echo Test 
