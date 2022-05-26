@@ -11,10 +11,6 @@ resources:
   - repository: templates
     type: git
     name: 'Devops/Devops'
-    ref: refs/heads/less-parameters
-
-variables:
-- group: 'DevopsPOC - Prod'
 
 extends:
   template: application-pipelines/simple-container-pipeline-extends.yml@templates
