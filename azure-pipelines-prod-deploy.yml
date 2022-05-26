@@ -13,6 +13,7 @@ resources:
   - repository: templates
     type: git
     name: 'Devops/Devops'
+    ref: refs/heads/less-parameters
 
 variables:
 - group: 'DevopsPOC - Prod'
@@ -25,8 +26,6 @@ extends:
     selfHostedAgent: False
     containerRegistry: $(gblAzureContainerRegistry)
     containerRegistryUrl: $(gblAzureContainerRegistryUrl)
-    containerRegistryUsername: 'dockerpoc2'
-    containerRegistryPassword: $(ARCPassword)
     imageName: $(Build.Repository.Name)
     imageTag: $(Build.SourceVersion)
     
@@ -36,25 +35,18 @@ extends:
       - bash: echo "Test 2"
         displayName: project step two $(prd-pass)
 
-    environmentsObject:
+    deploymentsList:
     - templateType: 'container-onprem-deploy'
       libraryName: 'Devops-Nodejs-POC - Dev'
-#      useSaveLoadMode: True
       selfHostedAgent: True
       environmentName: ${{ variables.gblProductionEnvironmentName }}  #Development
       dependsOn: []
-      containerRegistry: $(gblAzureContainerRegistry) #'DOCKERPOC2_ACR'
-      containerRegistryUrl: $(gblAzureContainerRegistryUrl) #'dockerpoc2.azurecr.io'
-      containerRegistryPassword: $(ARCPassword)
-      containerRegistryUsername: $(ARCUsername)
       sshEndpoint: $(gblSSHDigitalTwinProd)  #'KKSVAIDOCKERDV2_SSH'
       containerPort: 8080
       exposedPort: 8080
+      containerName: 'My-TodoList-POC'
       environmentsVariables:
         - Var1=Val1
         - Var2=Val1
         - Var3=Val1
-      imageName: mytodolistpoc
-      imageTag: $(Build.SourceVersion)
-      containerName: 'My-TodoList-POC'
       

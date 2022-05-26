@@ -36,7 +36,6 @@ extends:
     deploymentsList:
     - templateType: 'container-onprem-deploy'
       libraryName:  "Devops-Nodejs-POC - Dev"
-#      useSaveLoadMode: True
       selfHostedAgent: True
       environmentName: ${{ variables.gblDevelopmentEnvironmentName }}  #Development
       dependsOn: Build
