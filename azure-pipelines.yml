@@ -33,7 +33,7 @@ extends:
       - bash: echo "Test 2"
         displayName: project step two $(prd-pass)
 
-    environmentsObject:
+    deploymentsList:
     - templateType: 'container-onprem-deploy'
       libraryName:  "Devops-Nodejs-POC - Dev"
 #      useSaveLoadMode: True
