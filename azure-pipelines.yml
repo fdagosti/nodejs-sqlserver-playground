@@ -33,7 +33,7 @@ extends:
       containerPort: 8080
       exposedPort: 8080
       containerName: 'My-TodoList-POC'
-      environmentsVariables:
+      environmentVariables:
         - Var1=Val1
         - Var2=Val1
         - Var3=Val1
