@@ -32,7 +32,6 @@ extends:
     # deployment context
     deploymentsList:
     - templateType: 'container-onprem-deploy'
-      libraryName: 'Devops-Nodejs-POC - Dev'
       selfHostedAgent: True
       environmentName: "francois_test_environment"
       dependsOn: []
