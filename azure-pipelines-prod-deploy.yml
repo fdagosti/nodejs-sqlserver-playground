@@ -1,3 +1,5 @@
+
+
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
@@ -21,7 +23,7 @@ extends:
   parameters:
     # Generic information
     containerRegistry: 'DOCKERPOC2_ACR'
-    containerRegistryUrl: $(gblAzureContainerRegistryUrl)
+    containerRegistryUrl: 'dockerpoc2.azurecr.io'
     imageName: mytodolistpoc
     
     # build context
@@ -30,11 +32,11 @@ extends:
     # deployment context
     deploymentsList:
     - templateType: 'container-onprem-deploy'
-      libraryName: 'dockerpoc2.azurecr.io'
+      libraryName: 'Devops-Nodejs-POC - Dev'
       selfHostedAgent: True
       environmentName: "francois_test_environment"
       dependsOn: []
-      sshEndpoint: 'KKSVAIDOCKERPD_SSH'  
+      sshEndpoint: 'KKSVAIDOCKERPD_SSH' 
       containerPort: 8080
       exposedPort: 8080
       containerName: 'My-TodoList-POC'
