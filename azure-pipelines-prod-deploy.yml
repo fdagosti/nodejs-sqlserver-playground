@@ -23,7 +23,6 @@ extends:
   template: application-pipelines/simple-container-pipeline-extends.yml@templates
   parameters:
     buildImage: False
-    selfHostedAgent: False
     containerRegistry: $(gblAzureContainerRegistry)
     containerRegistryUrl: $(gblAzureContainerRegistryUrl)
     imageName: mytodolistpoc
@@ -34,7 +33,7 @@ extends:
       selfHostedAgent: True
       environmentName: "francois_test_environment"
       dependsOn: []
-      sshEndpoint: $(gblSSHDigitalTwinProd)  #'KKSVAIDOCKERDV2_SSH'
+      sshEndpoint: $(gblSSHDigitalTwinProd)  
       containerPort: 8080
       exposedPort: 8080
       containerName: 'My-TodoList-POC'

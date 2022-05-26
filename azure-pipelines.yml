@@ -21,7 +21,7 @@ extends:
   template: application-pipelines/simple-container-pipeline-extends.yml@templates
   parameters:
     buildImage: True
-    selfHostedAgent: False
+    buildSelfHostedAgent: False
     containerRegistry: $(gblAzureContainerRegistry) #'DOCKERPOC2_ACR'
     containerRegistryUrl: $(gblAzureContainerRegistryUrl) #'dockerpoc2.azurecr.io'
     imageName: mytodolistpoc
