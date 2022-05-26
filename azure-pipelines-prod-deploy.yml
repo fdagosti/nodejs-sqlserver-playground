@@ -39,7 +39,7 @@ extends:
     - templateType: 'container-onprem-deploy'
       libraryName: 'Devops-Nodejs-POC - Dev'
       selfHostedAgent: True
-      environmentName: ${{ variables.gblProductionEnvironmentName }}  #Development
+      environmentName: francois-test-environment
       dependsOn: []
       sshEndpoint: $(gblSSHDigitalTwinProd)  #'KKSVAIDOCKERDV2_SSH'
       containerPort: 8080
