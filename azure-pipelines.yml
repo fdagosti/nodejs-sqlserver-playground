@@ -32,7 +32,6 @@ extends:
     deploymentsList:
     - templateType: 'container-onprem-deploy'
       libraryName:  "Devops-Nodejs-POC - Dev"
-      selfHostedAgent: True
       environmentName: 'Development'
       dependsOn: Build
       sshEndpoint: 'KKSVAIDOCKERDV2_SSH'
