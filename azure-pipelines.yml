@@ -26,12 +26,6 @@ extends:
     containerRegistryUrl: $(gblAzureContainerRegistryUrl) #'dockerpoc2.azurecr.io'
     imageName: mytodolistpoc
 
-    projectBuildSteps:  
-      - bash: echo Test 
-        displayName: project step one $(dev-pass)
-      - bash: echo "Test 2"
-        displayName: project step two $(prd-pass)
-
     deploymentsList:
     - templateType: 'container-onprem-deploy'
       libraryName:  "Devops-Nodejs-POC - Dev"
