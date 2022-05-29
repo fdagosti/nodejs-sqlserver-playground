@@ -15,8 +15,8 @@
             <input type="text" name="newtask" placeholder="add new task"> <button> Add Task </button>
             <h2> Added Task </h2>
             <% for( var i=0; i < task.length; i++){ %>
-                <li><input type="checkbox" name="check" value="<%= task[i] %>" />
-                    <%= task[i] %>
+                <li><input type="checkbox" name="check" value="<%= task[i].id %>" />
+                    <%= task[i].title %>
                 </li>
             <% } %>
 
@@ -25,7 +25,7 @@
                     <h2> Completed task </h2>
                     <% for(var i=0; i < complete.length; i++){ %>
                         <li><input type="checkbox" checked>
-                            <%= complete[i] %>
+                            <%= complete[i].title %>
                         </li>
                         <% } %>
         </form>
