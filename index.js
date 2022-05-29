@@ -24,7 +24,7 @@ app.post('/addtask', function (req, res) {
 app.get("/", function (req, res) {
     tasksService.getPendingTasks().then((task) => {
         return tasksService.getCompletedTasks().then(complete => {
-            res.render("index", { task, complete, env: Object.keys(process.env) });
+            res.render("index", { task, complete, env: Object.keys(process.env), dbUsed: tasksService.databaseUsed });
         })
     })
 });

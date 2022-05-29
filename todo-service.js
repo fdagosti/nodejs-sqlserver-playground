@@ -4,6 +4,8 @@ var task = [{ id: 0, title: "buy milk", complete: 0 }, { id: 1, title: "learn Az
 var complete = [{ id: 3, title: "finish developingos a POC Nodejs app", complete: 1 }];
 var startId = 4;
 
+module.exports.databaseUsed = true;
+
 module.exports.getPendingTasks = () => {
     return getTasks(0);
 }
@@ -14,7 +16,9 @@ module.exports.getCompletedTasks = () => {
 
 function getTasks(completed) {
     return db.runQuery(`SELECT * FROM tasks WHERE complete=${completed}`).then(result => result.recordset)
-        .catch(() => completed == 0 ? task : complete);
+        .catch(() => {
+            module.exports.databaseUsed = false; return completed == 0 ? task : complete
+        });
 }
 
 
@@ -22,14 +26,18 @@ function getTasks(completed) {
 module.exports.addTask = (newTask) => {
 
     return db.runQuery(`INSERT INTO tasks(title) VALUES ('${newTask}');`)
-        .catch(() => task.push({ id: startId++,title: newTask, complete: 0 }));
+        .catch(() => {
+            module.exports.databaseUsed = false;
+            task.push({ id: startId++, title: newTask, complete: 0 })
+        });
 }
 
 
 module.exports.completeTask = (completedTaskId) => {
     return db.runQuery(`UPDATE tasks SET complete = 1 WHERE id = ${completedTaskId}`)
         .catch(() => {
-            complete.push(task.filter(item => item.id == completedTaskId).map(item => {item.complete = 1;return item})[0]);
+            module.exports.databaseUsed = false;
+            complete.push(task.filter(item => item.id == completedTaskId).map(item => { item.complete = 1; return item })[0]);
             task = task.filter(item => item.id != completedTaskId);
         });
 }

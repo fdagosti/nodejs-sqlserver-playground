@@ -19,3 +19,20 @@ ul {
     margin: 0;
     padding: 0;
 }
+
+.w3-panel {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding: .01em 16px;
+}
+
+.w3-panel-success {
+    color: #000!important;
+    background-color: #ddffdd!important;
+}
+
+.w3-panel-error {
+    color: #000!important;
+    background-color: #f9aeae!important;
+}
+
